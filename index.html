@@ -1,6 +1,32 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+<script>
+/* ===== DIAGNOSTIC 诊断版：捕获页面 JS 报错并显示在顶部 ===== */
+(function(){
+  var n=0;
+  function show(msg){
+    try{
+      var el=document.getElementById('dsh-err');
+      if(!el){
+        el=document.createElement('div'); el.id='dsh-err';
+        el.style.cssText='position:fixed;left:0;right:0;top:0;z-index:99999;background:#B00020;color:#fff;font:13px/1.5 monospace;padding:10px 12px;white-space:pre-wrap;word-break:break-all';
+        var ap=function(){ if(document.body) document.body.appendChild(el); else setTimeout(ap,100); };
+        ap();
+      }
+      el.textContent='[DIAG '+(++n)+'] '+msg;
+    }catch(e){}
+  }
+  window.__dshDiag=show;
+  window.addEventListener('error',function(ev){
+    show('ERROR: '+(ev.message||'')+' @ '+(ev.filename||'')+':'+(ev.lineno||'')+':'+(ev.colno||''));
+  },true);
+  window.addEventListener('unhandledrejection',function(ev){
+    var r=ev.reason; show('PROMISE: '+(r&&r.message?r.message:String(r)));
+  });
+  show('DIAG loader 已运行 '+Date.now()+'  (若下方只剩这行、且无动作卡片，说明已捕捉到报错)');
+})();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>健身动作库 · 自主训练手册</title>
