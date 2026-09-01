@@ -1,34 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<script>
-/* ===== DIAGNOSTIC 诊断版：捕获页面 JS 报错并显示在顶部 ===== */
-(function(){
-  var n=0;
-  function show(msg){
-    try{
-      var el=document.getElementById('dsh-err');
-      if(!el){
-        el=document.createElement('div'); el.id='dsh-err';
-        el.style.cssText='position:fixed;left:0;right:0;top:0;z-index:99999;background:#B00020;color:#fff;font:13px/1.5 monospace;padding:10px 12px;white-space:pre-wrap;word-break:break-all';
-        var ap=function(){ if(document.body) document.body.appendChild(el); else setTimeout(ap,100); };
-        ap();
-      }
-      (window.__dshMsgs=window.__dshMsgs||[]).push('['+(++n)+'] '+msg);
-      el.textContent=window.__dshMsgs.join('\n');
-    }catch(e){}
-  }
-  window.__dshDiag=show;
-  window.addEventListener('error',function(ev){
-    show('ERROR: '+(ev.message||'')+' @ '+(ev.filename||'')+':'+(ev.lineno||'')+':'+(ev.colno||''));
-  },true);
-  window.addEventListener('unhandledrejection',function(ev){
-    var r=ev.reason; show('PROMISE: '+(r&&r.message?r.message:String(r)));
-  });
-  show('DIAG loader 已运行 '+Date.now());
-  setTimeout(function(){ show('WATCHDOG 5s: DATA='+(typeof DATA)+' | cards='+document.querySelectorAll('.card').length+' | scripts='+document.getElementsByTagName('script').length); }, 5000);
-})();
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>健身动作库 · 自主训练手册</title>
@@ -342,7 +314,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <button class="totop" id="totop" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script src="./data.js"></script>
-<script>try{window.__dshDiag&&window.__dshDiag('CHECK_A >> 数据脚本执行完: DATA='+(typeof DATA));}catch(e){}</script>
 <script>
 
 
@@ -873,7 +844,7 @@ function initChecks(){
     c.addEventListener('change',()=>{saved[i]=c.checked?1:0;localStorage.setItem(KEY,JSON.stringify(saved));});
   });
 }
-initTabs();initFilters();initCards();initChecks();render();window.__dshDiag&&window.__dshDiag('CHECK_B >> 渲染完成: cards='+document.querySelectorAll('.card').length+' tabs='+document.querySelectorAll('#tabs .tab').length);
+initTabs();initFilters();initCards();initChecks();render();
 </script>
 <script>
 /* ================= 可编辑健身记录（每次训练 = 一行动作记录） ================= */
@@ -1077,7 +1048,6 @@ initTabs();initFilters();initCards();initChecks();render();window.__dshDiag&&win
 
   buildTable();
   recompute();
-  window.__dshDiag&&window.__dshDiag('CHECK_C >> 记录脚本完成: rows='+document.querySelectorAll('#recRows tr').length);
 })();
 </script>
 
