@@ -12,7 +12,7 @@
  *    （v2 → v3 → …），否则已安装的用户会命中旧缓存。
  * ===================================================================== */
 
-const CACHE_NAME = 'gym-handbook-v4';
+const CACHE_NAME = 'gym-handbook-v5';
 
 // 首次安装时预缓存的核心资源（均为同源、自包含）
 const URLS_TO_CACHE = [
